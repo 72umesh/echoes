@@ -16,7 +16,7 @@ const { fetchGithub } = proxyActivities<typeof activities>({
 const { analyze } = proxyActivities<typeof activities>({
   startToCloseTimeout: "10 minutes",
   heartbeatTimeout: "30 seconds",
-  retry,
+  retry: { ...retry, nonRetryableErrorTypes: [] },
 });
 
 const { saveReport } = proxyActivities<typeof activities>({
