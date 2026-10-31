@@ -5,9 +5,8 @@ const retry = {
   maximumAttempts: 3,
   initialInterval: "5 seconds",
   backoffCoefficient: 2,
-  // Bad URL, missing repo, empty repo, invalid model output: retrying cannot help.
   nonRetryableErrorTypes: ["EchoesError"],
-};
+} satisfies import("@temporalio/common").RetryPolicy;
 
 const { fetchGithub } = proxyActivities<typeof activities>({
   startToCloseTimeout: "2 minutes",

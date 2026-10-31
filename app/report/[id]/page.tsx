@@ -3,6 +3,7 @@ import { EchoesError } from "@/lib/errors";
 import type { EvidenceRecord } from "@/lib/evidence";
 import { readReport, type InvestigationReport } from "@/lib/reports";
 import type { Claim, ClaimKind } from "@/lib/schema";
+import Link from "next/link";
 
 const BADGE: Record<ClaimKind, string> = {
   observed: "border-emerald-700 bg-emerald-900/40 text-emerald-300",
@@ -14,13 +15,21 @@ type EvidenceById = Record<string, EvidenceRecord>;
 
 function Badge({ kind }: { kind: ClaimKind }) {
   return (
-    <span className={`shrink-0 rounded border px-2 py-0.5 text-xs uppercase tracking-wide ${BADGE[kind]}`}>
+    <span
+      className={`shrink-0 rounded border px-2 py-0.5 text-xs uppercase tracking-wide ${BADGE[kind]}`}
+    >
       {kind}
     </span>
   );
 }
 
-function EvidenceLinks({ ids, evidence }: { ids: string[]; evidence: EvidenceById }) {
+function EvidenceLinks({
+  ids,
+  evidence,
+}: {
+  ids: string[];
+  evidence: EvidenceById;
+}) {
   const items = ids
     .map((id) => evidence[id])
     .filter((item) => item && item.url.startsWith("https://github.com/"));
@@ -28,7 +37,7 @@ function EvidenceLinks({ ids, evidence }: { ids: string[]; evidence: EvidenceByI
   return (
     <div className="mt-1 flex flex-wrap gap-2">
       {items.map((item) => (
-        <a
+        <Link
           key={item.id}
           href={item.url}
           target="_blank"
@@ -36,14 +45,21 @@ function EvidenceLinks({ ids, evidence }: { ids: string[]; evidence: EvidenceByI
           className="max-w-xs truncate rounded bg-zinc-800 px-2 py-0.5 text-xs text-violet-300 hover:text-violet-200"
         >
           {item.id}: {item.label}
-        </a>
+        </Link>
       ))}
     </div>
   );
 }
 
-function ClaimList({ claims, evidence }: { claims: Claim[]; evidence: EvidenceById }) {
-  if (claims.length === 0) return <p className="text-sm text-zinc-500">No claims recorded.</p>;
+function ClaimList({
+  claims,
+  evidence,
+}: {
+  claims: Claim[];
+  evidence: EvidenceById;
+}) {
+  if (claims.length === 0)
+    return <p className="text-sm text-zinc-500">No claims recorded.</p>;
   return (
     <ul className="space-y-3">
       {claims.map((claim, index) => (
@@ -59,7 +75,13 @@ function ClaimList({ claims, evidence }: { claims: Claim[]; evidence: EvidenceBy
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <section className="space-y-3 border-t border-zinc-800 pt-6">
       <h2 className="text-xl font-semibold">{title}</h2>
@@ -68,7 +90,11 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-export default async function ReportPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ReportPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
 
   let report: InvestigationReport;
@@ -79,30 +105,40 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
     throw error;
   }
 
-  const evidence: EvidenceById = Object.fromEntries(report.evidence.map((item) => [item.id, item]));
+  const evidence: EvidenceById = Object.fromEntries(
+    report.evidence.map((item) => [item.id, item]),
+  );
   const { analysis, repo } = report;
 
   return (
     <main className="min-h-screen bg-zinc-950 p-6 text-zinc-100">
       <div className="mx-auto max-w-3xl space-y-8">
         <header className="space-y-2">
-          <a href="/" className="text-sm text-violet-300 hover:text-violet-200">
+          <Link href="/" className="text-sm text-violet-300 hover:text-violet-200">
             Echoes / new investigation
-          </a>
+          </Link>
           <h1 className="text-3xl font-semibold">
-            <a href={repo.htmlUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            <Link
+              href={repo.htmlUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
               {repo.fullName}
-            </a>
+            </Link>
           </h1>
-          {repo.description && <p className="text-zinc-400">{repo.description}</p>}
+          {repo.description && (
+            <p className="text-zinc-400">{repo.description}</p>
+          )}
           <p className="text-sm text-zinc-500">
-            {repo.stars.toLocaleString("en-US")} stars · {repo.openIssues.toLocaleString("en-US")} open issues ·
-            last push {repo.pushedAt ? repo.pushedAt.slice(0, 10) : "unknown"} · report generated{" "}
-            {report.generatedAt.slice(0, 10)}
+            {repo.stars.toLocaleString("en-US")} stars ·{" "}
+            {repo.openIssues.toLocaleString("en-US")} open issues · last push{" "}
+            {repo.pushedAt ? repo.pushedAt.slice(0, 10) : "unknown"} · report
+            generated {report.generatedAt.slice(0, 10)}
           </p>
           <p className="rounded border border-amber-800 bg-amber-950/40 p-3 text-xs text-amber-200">
-            {report.hostedModel.note} Model: {report.hostedModel.model}. Low activity is a signal, not proof
-            that a project is abandoned.
+            {report.hostedModel.note} Model: {report.hostedModel.model}. Low
+            activity is a signal, not proof that a project is abandoned.
           </p>
         </header>
 
@@ -121,10 +157,14 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
 
         <Section title="Architecture">
           <p className="rounded border border-zinc-700 bg-zinc-900 p-3 text-xs text-zinc-400">
-            Inferred from the file tree and README only. Source files were not read.
+            Inferred from the file tree and README only. Source files were not
+            read.
           </p>
           <p className="text-zinc-300">{analysis.architecture.explanation}</p>
-          <ClaimList claims={analysis.architecture.claims} evidence={evidence} />
+          <ClaimList
+            claims={analysis.architecture.claims}
+            evidence={evidence}
+          />
         </Section>
 
         <Section title="History">
@@ -134,16 +174,24 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
 
         <Section title="Current state">
           <p className="text-zinc-300">{analysis.currentState.healthSignals}</p>
-          <ClaimList claims={analysis.currentState.claims} evidence={evidence} />
+          <ClaimList
+            claims={analysis.currentState.claims}
+            evidence={evidence}
+          />
         </Section>
 
         <Section title="Revival opportunities">
           {analysis.revivalOpportunities.length === 0 && (
-            <p className="text-sm text-zinc-500">None identified from the available evidence.</p>
+            <p className="text-sm text-zinc-500">
+              None identified from the available evidence.
+            </p>
           )}
           <div className="space-y-3">
             {analysis.revivalOpportunities.map((item, index) => (
-              <div key={index} className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+              <div
+                key={index}
+                className="rounded-lg border border-zinc-800 bg-zinc-900 p-4"
+              >
                 <div className="flex items-center gap-3">
                   <Badge kind={item.kind} />
                   <h3 className="font-medium">{item.title}</h3>
@@ -166,8 +214,9 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
         )}
 
         <footer className="border-t border-zinc-800 pt-4 text-xs text-zinc-500">
-          Invented evidence IDs dropped by the backend: {report.droppedEvidenceCount}. Links come only from the
-          saved evidence map.
+          Invented evidence IDs dropped by the backend:{" "}
+          {report.droppedEvidenceCount}. Links come only from the saved evidence
+          map.
         </footer>
       </div>
     </main>
