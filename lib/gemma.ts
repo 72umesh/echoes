@@ -4,7 +4,13 @@ import type { EvidenceMap } from "./evidence";
 import { evidenceList } from "./evidence";
 import type { GitHubSnapshot } from "./github/client";
 import { analysisSchema, ANALYSIS_JSON_SHAPE, type Analysis } from "./schema";
-import { clipCommitMessage, clipIssueBody, clipReadme, wrapUntrusted } from "./untrusted";
+import {
+  clipCommitMessage,
+  clipIssueBody,
+  clipReadme,
+  wrapUntrusted,
+} from "./untrusted";
+import * as Sentry from "@sentry/node";
 
 export const DEFAULT_GEMMA_MODEL = "gemma-3-27b-it";
 
@@ -34,13 +40,18 @@ function extractJson(raw: string): string {
   return raw.trim();
 }
 
-function formatZodIssues(error: { issues: { path: PropertyKey[]; message: string }[] }): string {
+function formatZodIssues(error: {
+  issues: { path: PropertyKey[]; message: string }[];
+}): string {
   return error.issues
     .map((issue) => `  ${issue.path.join(".") || "(root)"}: ${issue.message}`)
     .join("\n");
 }
 
-function buildUserPrompt(snapshot: GitHubSnapshot, evidence: EvidenceMap): string {
+function buildUserPrompt(
+  snapshot: GitHubSnapshot,
+  evidence: EvidenceMap,
+): string {
   const catalog = evidenceList(evidence)
     .map((item) => `${item.id} [${item.kind}] ${item.label}`)
     .join("\n");
@@ -90,7 +101,12 @@ function buildUserPrompt(snapshot: GitHubSnapshot, evidence: EvidenceMap): strin
     "",
     wrapUntrusted("FILE_TREE", files || "(no files)"),
     "",
-    wrapUntrusted("README", snapshot.readme.found ? clipReadme(snapshot.readme.markdown) : "(missing)"),
+    wrapUntrusted(
+      "README",
+      snapshot.readme.found
+        ? clipReadme(snapshot.readme.markdown)
+        : "(missing)",
+    ),
     "",
     wrapUntrusted("COMMITS", commits || "(no commits)"),
     "",
@@ -116,7 +132,9 @@ async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
       lastError = error;
       if (i === attempts || !isRetryable(error)) break;
       const waitMs = 2000 * 2 ** (i - 1);
-      console.warn(`Gemma call failed (attempt ${i}/${attempts}); retrying in ${waitMs / 1000}s...`);
+      console.warn(
+        `Gemma call failed (attempt ${i}/${attempts}); retrying in ${waitMs / 1000}s...`,
+      );
       await new Promise((resolve) => setTimeout(resolve, waitMs));
     }
   }
@@ -124,14 +142,46 @@ async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
     ? lastError
     : new EchoesError("gemma_api", "Gemma API call failed.");
 }
-
-async function generateOnce(ai: GoogleGenAI, model: string, prompt: string): Promise<string> {
+async function generateOnce(
+  ai: GoogleGenAI,
+  model: string,
+  prompt: string,
+): Promise<string> {
   const response = await withRetry(() =>
-    ai.models.generateContent({
-      model,
-      contents: prompt,
-      config: { temperature: 0.2, maxOutputTokens: 4096 },
-    }),
+    Sentry.startSpan(
+      {
+        op: "gen_ai.request",
+        name: `generate_content ${model}`,
+        attributes: {
+          "gen_ai.operation.name": "generate_content",
+          "gen_ai.system": "google_genai",
+          "gen_ai.request.model": model,
+          "gen_ai.request.temperature": 0.2,
+          "gen_ai.request.max_tokens": 4096,
+        },
+      },
+      async (span) => {
+        const result = await ai.models.generateContent({
+          model,
+          contents: prompt,
+          config: { temperature: 0.2, maxOutputTokens: 4096 },
+        });
+        const usage = result.usageMetadata;
+        if (usage?.promptTokenCount !== undefined)
+          span.setAttribute(
+            "gen_ai.usage.input_tokens",
+            usage.promptTokenCount,
+          );
+        if (usage?.candidatesTokenCount !== undefined)
+          span.setAttribute(
+            "gen_ai.usage.output_tokens",
+            usage.candidatesTokenCount,
+          );
+        if (usage?.totalTokenCount !== undefined)
+          span.setAttribute("gen_ai.usage.total_tokens", usage.totalTokenCount);
+        return result;
+      },
+    ),
   );
 
   const text = response.text;
@@ -141,17 +191,25 @@ async function generateOnce(ai: GoogleGenAI, model: string, prompt: string): Pro
   return text;
 }
 
-function parseAnalysis(raw: string): { ok: true; data: Analysis } | { ok: false; error: string } {
+function parseAnalysis(
+  raw: string,
+): { ok: true; data: Analysis } | { ok: false; error: string } {
   let parsed: unknown;
   try {
     parsed = JSON.parse(extractJson(raw));
   } catch {
-    return { ok: false, error: `Invalid JSON. First 200 chars: ${raw.slice(0, 200)}` };
+    return {
+      ok: false,
+      error: `Invalid JSON. First 200 chars: ${raw.slice(0, 200)}`,
+    };
   }
 
   const result = analysisSchema.safeParse(parsed);
   if (!result.success) {
-    return { ok: false, error: `Schema validation failed:\n${formatZodIssues(result.error)}` };
+    return {
+      ok: false,
+      error: `Schema validation failed:\n${formatZodIssues(result.error)}`,
+    };
   }
   return { ok: true, data: result.data };
 }
@@ -192,6 +250,10 @@ export async function analyzeWithGemma(
   if (parsed.ok) {
     return { analysis: applyArchitectureDisclaimer(parsed.data), model };
   }
+  Sentry.captureMessage("Gemma output failed validation; retrying once", {
+    level: "warning",
+    extra: { problem: parsed.error.slice(0, 300) },
+  });
 
   const retryPrompt = `${basePrompt}
 

@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
+    "@sentry/node": "^11.10.0",
     "@temporalio/activity": "^1.25.0",
     "@temporalio/client": "^1.25.0",
     "@temporalio/worker": "^1.25.0",

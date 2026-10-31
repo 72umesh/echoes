@@ -2,9 +2,11 @@ import { config } from "dotenv";
 import { NativeConnection, Worker } from "@temporalio/worker";
 import * as activities from "./activities";
 import { TASK_QUEUE, temporalAddress } from "./constants";
+import { initSentry } from "../lib/sentry";
 
 config({ path: ".env.local" });
 config();
+initSentry("worker");
 
 async function run() {
   const connection = await NativeConnection.connect({ address: temporalAddress() });

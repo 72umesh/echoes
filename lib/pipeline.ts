@@ -5,6 +5,7 @@ import { analyzeWithGemma } from "./gemma";
 import { makeReportId, writeReport, type InvestigationReport } from "./reports";
 import { resolveAnalysisEvidence } from "./resolveEvidence";
 import type { Analysis } from "./schema";
+import * as Sentry from "@sentry/node";
 
 export async function analyzeSnapshot(snapshot: GitHubSnapshot): Promise<{
   analysis: Analysis;
@@ -15,6 +16,13 @@ export async function analyzeSnapshot(snapshot: GitHubSnapshot): Promise<{
   const evidenceMap = buildEvidenceMap(snapshot);
   const { analysis: rawAnalysis, model } = await analyzeWithGemma(snapshot, evidenceMap);
   const { analysis, droppedEvidenceCount } = resolveAnalysisEvidence(rawAnalysis, evidenceMap);
+    if (droppedEvidenceCount > 0) {
+    Sentry.captureMessage(`Gemma cited ${droppedEvidenceCount} evidence IDs that do not exist`, {
+      level: "warning",
+      tags: { repo: `${snapshot.meta.owner}/${snapshot.meta.name}` },
+    });
+  }
+  
   return { analysis, droppedEvidenceCount, model, evidence: evidenceList(evidenceMap) };
 }
 
