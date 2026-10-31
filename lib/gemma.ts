@@ -98,19 +98,41 @@ function buildUserPrompt(snapshot: GitHubSnapshot, evidence: EvidenceMap): strin
   ].join("\n");
 }
 
-async function generateOnce(
-  ai: GoogleGenAI,
-  model: string,
-  prompt: string,
-): Promise<string> {
-  const response = await ai.models.generateContent({
-    model,
-    contents: prompt,
-    config: {
-      temperature: 0.2,
-      maxOutputTokens: 4096,
-    },
-  });
+function isRetryable(error: unknown): boolean {
+  const e = error as { status?: number; code?: number; message?: string };
+  const status = e?.status ?? e?.code;
+  if (typeof status === "number") return status === 429 || status >= 500;
+  return /\b(429|500|502|503|504)\b|INTERNAL|UNAVAILABLE|RESOURCE_EXHAUSTED|fetch failed|ECONNRESET/i.test(
+    String(e?.message ?? ""),
+  );
+}
+
+async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
+  let lastError: unknown;
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error;
+      if (i === attempts || !isRetryable(error)) break;
+      const waitMs = 2000 * 2 ** (i - 1);
+      console.warn(`Gemma call failed (attempt ${i}/${attempts}); retrying in ${waitMs / 1000}s...`);
+      await new Promise((resolve) => setTimeout(resolve, waitMs));
+    }
+  }
+  throw lastError instanceof Error
+    ? lastError
+    : new EchoesError("gemma_api", "Gemma API call failed.");
+}
+
+async function generateOnce(ai: GoogleGenAI, model: string, prompt: string): Promise<string> {
+  const response = await withRetry(() =>
+    ai.models.generateContent({
+      model,
+      contents: prompt,
+      config: { temperature: 0.2, maxOutputTokens: 4096 },
+    }),
+  );
 
   const text = response.text;
   if (!text?.trim()) {
