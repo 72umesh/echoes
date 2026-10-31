@@ -1,21 +1,32 @@
-import { buildEvidenceMap, evidenceList } from "./evidence";
-import { fetchGitHubSnapshot } from "./github/client";
+import { buildEvidenceMap, evidenceList, type EvidenceRecord } from "./evidence";
+import { fetchGitHubSnapshot, type GitHubSnapshot } from "./github/client";
 import { parseGitHubUrl } from "./github/parse";
 import { analyzeWithGemma } from "./gemma";
 import { makeReportId, writeReport, type InvestigationReport } from "./reports";
 import { resolveAnalysisEvidence } from "./resolveEvidence";
+import type { Analysis } from "./schema";
 
-export async function investigateRepository(repoUrl: string): Promise<{
-  report: InvestigationReport;
-  path: string;
+export async function analyzeSnapshot(snapshot: GitHubSnapshot): Promise<{
+  analysis: Analysis;
+  droppedEvidenceCount: number;
+  model: string;
+  evidence: EvidenceRecord[];
 }> {
-  const ref = parseGitHubUrl(repoUrl);
-  const snapshot = await fetchGitHubSnapshot(ref);
-  const evidence = buildEvidenceMap(snapshot);
-  const { analysis: rawAnalysis, model } = await analyzeWithGemma(snapshot, evidence);
-  const { analysis, droppedEvidenceCount } = resolveAnalysisEvidence(rawAnalysis, evidence);
+  const evidenceMap = buildEvidenceMap(snapshot);
+  const { analysis: rawAnalysis, model } = await analyzeWithGemma(snapshot, evidenceMap);
+  const { analysis, droppedEvidenceCount } = resolveAnalysisEvidence(rawAnalysis, evidenceMap);
+  return { analysis, droppedEvidenceCount, model, evidence: evidenceList(evidenceMap) };
+}
 
-  const report: InvestigationReport = {
+export function buildReport(args: {
+  snapshot: GitHubSnapshot;
+  model: string;
+  evidence: EvidenceRecord[];
+  analysis: Analysis;
+  droppedEvidenceCount: number;
+}): InvestigationReport {
+  const { snapshot, model, evidence, analysis, droppedEvidenceCount } = args;
+  return {
     id: makeReportId(snapshot.meta.owner, snapshot.meta.name),
     generatedAt: new Date().toISOString(),
     hostedModel: {
@@ -25,11 +36,20 @@ export async function investigateRepository(repoUrl: string): Promise<{
     },
     repo: snapshot.meta,
     warnings: snapshot.warnings,
-    evidence: evidenceList(evidence),
+    evidence,
     analysis,
     droppedEvidenceCount,
   };
+}
 
+export async function investigateRepository(repoUrl: string): Promise<{
+  report: InvestigationReport;
+  path: string;
+}> {
+  const ref = parseGitHubUrl(repoUrl);
+  const snapshot = await fetchGitHubSnapshot(ref);
+  const analyzed = await analyzeSnapshot(snapshot);
+  const report = buildReport({ snapshot, ...analyzed });
   const filePath = await writeReport(report);
   return { report, path: filePath };
 }

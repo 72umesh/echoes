@@ -7,10 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "investigate": "tsx scripts/investigate.ts"
+    "investigate": "tsx scripts/investigate.ts",
+    "worker": "tsx temporal/worker.ts",
+    "investigate:temporal": "tsx scripts/investigate-temporal.ts"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
+    "@temporalio/activity": "^1.25.0",
+    "@temporalio/client": "^1.25.0",
+    "@temporalio/worker": "^1.25.0",
+    "@temporalio/workflow": "^1.25.0",
     "dotenv": "^18.0.9",
     "next": "16.4.3",
     "react": "19.3.0",

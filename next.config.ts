@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  serverExternalPackages: ["@temporalio/client"],
   turbopack: {
     rules: {
       "*.css": {
