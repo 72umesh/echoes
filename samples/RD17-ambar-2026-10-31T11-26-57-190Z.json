@@ -1,0 +1,856 @@
+{
+  "id": "RD17-ambar-2026-10-31T11-26-57-190Z",
+  "generatedAt": "2026-10-31T11:26:57.190Z",
+  "hostedModel": {
+    "provider": "google-gemini",
+    "model": "gemma-4-26b-a4b-it",
+    "note": "Analysis used Google's hosted Gemini API with a Gemma model. It is not offline or private."
+  },
+  "repo": {
+    "owner": "RD17",
+    "name": "ambar",
+    "fullName": "RD17/ambar",
+    "htmlUrl": "https://github.com/RD17/ambar",
+    "description": ":mag: Ambar: Document Search Engine",
+    "defaultBranch": "master",
+    "language": "JavaScript",
+    "license": "MIT",
+    "stars": 1944,
+    "forks": 363,
+    "openIssues": 2,
+    "archived": true,
+    "disabled": false,
+    "createdAt": "2016-11-28T13:14:20Z",
+    "updatedAt": "2026-10-13T18:57:51Z",
+    "pushedAt": "2021-08-26T08:29:28Z",
+    "size": 52233,
+    "topics": [
+      "ambar",
+      "ambar-search",
+      "ocr",
+      "pdf",
+      "search",
+      "search-engine",
+      "search-in-text",
+      "self-hosted"
+    ],
+    "isEmpty": false
+  },
+  "warnings": [
+    "File tree capped at 80 paths (of 395 blobs returned)."
+  ],
+  "evidence": [
+    {
+      "id": "readme-1",
+      "kind": "readme",
+      "label": "README",
+      "url": "https://github.com/RD17/ambar/blob/master/README.md"
+    },
+    {
+      "id": "file-1",
+      "kind": "file",
+      "label": ".gitignore",
+      "url": "https://github.com/RD17/ambar/blob/master/.gitignore"
+    },
+    {
+      "id": "file-2",
+      "kind": "file",
+      "label": "CHANGELOG.md",
+      "url": "https://github.com/RD17/ambar/blob/master/CHANGELOG.md"
+    },
+    {
+      "id": "file-3",
+      "kind": "file",
+      "label": "docker-compose.yml",
+      "url": "https://github.com/RD17/ambar/blob/master/docker-compose.yml"
+    },
+    {
+      "id": "file-4",
+      "kind": "file",
+      "label": "License.txt",
+      "url": "https://github.com/RD17/ambar/blob/master/License.txt"
+    },
+    {
+      "id": "file-5",
+      "kind": "file",
+      "label": "privacy-policy.md",
+      "url": "https://github.com/RD17/ambar/blob/master/privacy-policy.md"
+    },
+    {
+      "id": "file-6",
+      "kind": "file",
+      "label": "README.md",
+      "url": "https://github.com/RD17/ambar/blob/master/README.md"
+    },
+    {
+      "id": "file-7",
+      "kind": "file",
+      "label": ".github/stale.yml",
+      "url": "https://github.com/RD17/ambar/blob/master/.github/stale.yml"
+    },
+    {
+      "id": "file-8",
+      "kind": "file",
+      "label": ".vscode/launch.json",
+      "url": "https://github.com/RD17/ambar/blob/master/.vscode/launch.json"
+    },
+    {
+      "id": "file-9",
+      "kind": "file",
+      "label": ".vscode/settings.json",
+      "url": "https://github.com/RD17/ambar/blob/master/.vscode/settings.json"
+    },
+    {
+      "id": "file-10",
+      "kind": "file",
+      "label": "ElasticSearch/.gitignore",
+      "url": "https://github.com/RD17/ambar/blob/master/ElasticSearch/.gitignore"
+    },
+    {
+      "id": "file-11",
+      "kind": "file",
+      "label": "ElasticSearch/Dockerfile",
+      "url": "https://github.com/RD17/ambar/blob/master/ElasticSearch/Dockerfile"
+    },
+    {
+      "id": "file-12",
+      "kind": "file",
+      "label": "ElasticSearch/elasticsearch.yml",
+      "url": "https://github.com/RD17/ambar/blob/master/ElasticSearch/elasticsearch.yml"
+    },
+    {
+      "id": "file-13",
+      "kind": "file",
+      "label": "FrontEnd/.babelrc",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/.babelrc"
+    },
+    {
+      "id": "file-14",
+      "kind": "file",
+      "label": "FrontEnd/.editorconfig",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/.editorconfig"
+    },
+    {
+      "id": "file-15",
+      "kind": "file",
+      "label": "FrontEnd/.eslintignore",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/.eslintignore"
+    },
+    {
+      "id": "file-16",
+      "kind": "file",
+      "label": "FrontEnd/.eslintrc",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/.eslintrc"
+    },
+    {
+      "id": "file-17",
+      "kind": "file",
+      "label": "FrontEnd/.gitignore",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/.gitignore"
+    },
+    {
+      "id": "file-18",
+      "kind": "file",
+      "label": "FrontEnd/.reduxrc",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/.reduxrc"
+    },
+    {
+      "id": "file-19",
+      "kind": "file",
+      "label": "FrontEnd/default",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/default"
+    },
+    {
+      "id": "file-20",
+      "kind": "file",
+      "label": "FrontEnd/Dockerfile",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/Dockerfile"
+    },
+    {
+      "id": "file-21",
+      "kind": "file",
+      "label": "FrontEnd/nodemon.json",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/nodemon.json"
+    },
+    {
+      "id": "file-22",
+      "kind": "file",
+      "label": "FrontEnd/package.json",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/package.json"
+    },
+    {
+      "id": "file-23",
+      "kind": "file",
+      "label": "LocalCrawler/.babelrc",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/.babelrc"
+    },
+    {
+      "id": "file-24",
+      "kind": "file",
+      "label": "LocalCrawler/.eslintignore",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/.eslintignore"
+    },
+    {
+      "id": "file-25",
+      "kind": "file",
+      "label": "LocalCrawler/.eslintrc",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/.eslintrc"
+    },
+    {
+      "id": "file-26",
+      "kind": "file",
+      "label": "LocalCrawler/.gitignore",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/.gitignore"
+    },
+    {
+      "id": "file-27",
+      "kind": "file",
+      "label": "LocalCrawler/debug.js",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/debug.js"
+    },
+    {
+      "id": "file-28",
+      "kind": "file",
+      "label": "LocalCrawler/Dockerfile",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/Dockerfile"
+    },
+    {
+      "id": "file-29",
+      "kind": "file",
+      "label": "LocalCrawler/jsconfig.json",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/jsconfig.json"
+    },
+    {
+      "id": "file-30",
+      "kind": "file",
+      "label": "LocalCrawler/package.json",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/package.json"
+    },
+    {
+      "id": "file-31",
+      "kind": "file",
+      "label": "MongoDB/.gitignore",
+      "url": "https://github.com/RD17/ambar/blob/master/MongoDB/.gitignore"
+    },
+    {
+      "id": "file-32",
+      "kind": "file",
+      "label": "MongoDB/docker-entrypoint.sh",
+      "url": "https://github.com/RD17/ambar/blob/master/MongoDB/docker-entrypoint.sh"
+    },
+    {
+      "id": "file-33",
+      "kind": "file",
+      "label": "MongoDB/Dockerfile",
+      "url": "https://github.com/RD17/ambar/blob/master/MongoDB/Dockerfile"
+    },
+    {
+      "id": "file-34",
+      "kind": "file",
+      "label": "Pipeline/apiproxy.py",
+      "url": "https://github.com/RD17/ambar/blob/master/Pipeline/apiproxy.py"
+    },
+    {
+      "id": "file-35",
+      "kind": "file",
+      "label": "Pipeline/Dockerfile",
+      "url": "https://github.com/RD17/ambar/blob/master/Pipeline/Dockerfile"
+    },
+    {
+      "id": "file-36",
+      "kind": "file",
+      "label": "Pipeline/logger.py",
+      "url": "https://github.com/RD17/ambar/blob/master/Pipeline/logger.py"
+    },
+    {
+      "id": "file-37",
+      "kind": "file",
+      "label": "Pipeline/model.py",
+      "url": "https://github.com/RD17/ambar/blob/master/Pipeline/model.py"
+    },
+    {
+      "id": "file-38",
+      "kind": "file",
+      "label": "Pipeline/pipeline.py",
+      "url": "https://github.com/RD17/ambar/blob/master/Pipeline/pipeline.py"
+    },
+    {
+      "id": "file-39",
+      "kind": "file",
+      "label": "Pipeline/requirements.txt",
+      "url": "https://github.com/RD17/ambar/blob/master/Pipeline/requirements.txt"
+    },
+    {
+      "id": "file-40",
+      "kind": "file",
+      "label": "Pipeline/tika-config.xml",
+      "url": "https://github.com/RD17/ambar/blob/master/Pipeline/tika-config.xml"
+    },
+    {
+      "id": "file-41",
+      "kind": "file",
+      "label": "Rabbit/.gitignore",
+      "url": "https://github.com/RD17/ambar/blob/master/Rabbit/.gitignore"
+    },
+    {
+      "id": "file-42",
+      "kind": "file",
+      "label": "Rabbit/Dockerfile",
+      "url": "https://github.com/RD17/ambar/blob/master/Rabbit/Dockerfile"
+    },
+    {
+      "id": "file-43",
+      "kind": "file",
+      "label": "Rabbit/rabbitmq.config",
+      "url": "https://github.com/RD17/ambar/blob/master/Rabbit/rabbitmq.config"
+    },
+    {
+      "id": "file-44",
+      "kind": "file",
+      "label": "Redis/Dockerfile",
+      "url": "https://github.com/RD17/ambar/blob/master/Redis/Dockerfile"
+    },
+    {
+      "id": "file-45",
+      "kind": "file",
+      "label": "Redis/redis.conf",
+      "url": "https://github.com/RD17/ambar/blob/master/Redis/redis.conf"
+    },
+    {
+      "id": "file-46",
+      "kind": "file",
+      "label": "ServiceApi/.babelrc",
+      "url": "https://github.com/RD17/ambar/blob/master/ServiceApi/.babelrc"
+    },
+    {
+      "id": "file-47",
+      "kind": "file",
+      "label": "ServiceApi/.eslintignore",
+      "url": "https://github.com/RD17/ambar/blob/master/ServiceApi/.eslintignore"
+    },
+    {
+      "id": "file-48",
+      "kind": "file",
+      "label": "ServiceApi/.eslintrc",
+      "url": "https://github.com/RD17/ambar/blob/master/ServiceApi/.eslintrc"
+    },
+    {
+      "id": "file-49",
+      "kind": "file",
+      "label": "ServiceApi/.gitignore",
+      "url": "https://github.com/RD17/ambar/blob/master/ServiceApi/.gitignore"
+    },
+    {
+      "id": "file-50",
+      "kind": "file",
+      "label": "ServiceApi/apidoc.json",
+      "url": "https://github.com/RD17/ambar/blob/master/ServiceApi/apidoc.json"
+    },
+    {
+      "id": "file-51",
+      "kind": "file",
+      "label": "ServiceApi/debug.js",
+      "url": "https://github.com/RD17/ambar/blob/master/ServiceApi/debug.js"
+    },
+    {
+      "id": "file-52",
+      "kind": "file",
+      "label": "ServiceApi/Dockerfile",
+      "url": "https://github.com/RD17/ambar/blob/master/ServiceApi/Dockerfile"
+    },
+    {
+      "id": "file-53",
+      "kind": "file",
+      "label": "ServiceApi/jsconfig.json",
+      "url": "https://github.com/RD17/ambar/blob/master/ServiceApi/jsconfig.json"
+    },
+    {
+      "id": "file-54",
+      "kind": "file",
+      "label": "ServiceApi/package.json",
+      "url": "https://github.com/RD17/ambar/blob/master/ServiceApi/package.json"
+    },
+    {
+      "id": "file-55",
+      "kind": "file",
+      "label": "WebApi/.babelrc",
+      "url": "https://github.com/RD17/ambar/blob/master/WebApi/.babelrc"
+    },
+    {
+      "id": "file-56",
+      "kind": "file",
+      "label": "WebApi/.eslintignore",
+      "url": "https://github.com/RD17/ambar/blob/master/WebApi/.eslintignore"
+    },
+    {
+      "id": "file-57",
+      "kind": "file",
+      "label": "WebApi/.eslintrc",
+      "url": "https://github.com/RD17/ambar/blob/master/WebApi/.eslintrc"
+    },
+    {
+      "id": "file-58",
+      "kind": "file",
+      "label": "WebApi/.gitignore",
+      "url": "https://github.com/RD17/ambar/blob/master/WebApi/.gitignore"
+    },
+    {
+      "id": "file-59",
+      "kind": "file",
+      "label": "WebApi/apidoc.json",
+      "url": "https://github.com/RD17/ambar/blob/master/WebApi/apidoc.json"
+    },
+    {
+      "id": "file-60",
+      "kind": "file",
+      "label": "WebApi/debug.js",
+      "url": "https://github.com/RD17/ambar/blob/master/WebApi/debug.js"
+    },
+    {
+      "id": "file-61",
+      "kind": "file",
+      "label": "WebApi/Dockerfile",
+      "url": "https://github.com/RD17/ambar/blob/master/WebApi/Dockerfile"
+    },
+    {
+      "id": "file-62",
+      "kind": "file",
+      "label": "WebApi/jsconfig.json",
+      "url": "https://github.com/RD17/ambar/blob/master/WebApi/jsconfig.json"
+    },
+    {
+      "id": "file-63",
+      "kind": "file",
+      "label": "WebApi/package.json",
+      "url": "https://github.com/RD17/ambar/blob/master/WebApi/package.json"
+    },
+    {
+      "id": "file-64",
+      "kind": "file",
+      "label": "FrontEnd/bin/compile.js",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/bin/compile.js"
+    },
+    {
+      "id": "file-65",
+      "kind": "file",
+      "label": "FrontEnd/bin/server.js",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/bin/server.js"
+    },
+    {
+      "id": "file-66",
+      "kind": "file",
+      "label": "FrontEnd/blueprints/.eslintrc",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/blueprints/.eslintrc"
+    },
+    {
+      "id": "file-67",
+      "kind": "file",
+      "label": "FrontEnd/build/karma.conf.js",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/build/karma.conf.js"
+    },
+    {
+      "id": "file-68",
+      "kind": "file",
+      "label": "FrontEnd/build/webpack-compiler.js",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/build/webpack-compiler.js"
+    },
+    {
+      "id": "file-69",
+      "kind": "file",
+      "label": "FrontEnd/build/webpack.config.js",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/build/webpack.config.js"
+    },
+    {
+      "id": "file-70",
+      "kind": "file",
+      "label": "FrontEnd/config/environments.js",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/config/environments.js"
+    },
+    {
+      "id": "file-71",
+      "kind": "file",
+      "label": "FrontEnd/config/index.js",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/config/index.js"
+    },
+    {
+      "id": "file-72",
+      "kind": "file",
+      "label": "FrontEnd/server/main.js",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/server/main.js"
+    },
+    {
+      "id": "file-73",
+      "kind": "file",
+      "label": "FrontEnd/src/index.html",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/src/index.html"
+    },
+    {
+      "id": "file-74",
+      "kind": "file",
+      "label": "FrontEnd/src/main.js",
+      "url": "https://github.com/RD17/ambar/blob/master/FrontEnd/src/main.js"
+    },
+    {
+      "id": "file-75",
+      "kind": "file",
+      "label": "LocalCrawler/.vscode/launch.json",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/.vscode/launch.json"
+    },
+    {
+      "id": "file-76",
+      "kind": "file",
+      "label": "LocalCrawler/.vscode/settings.json",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/.vscode/settings.json"
+    },
+    {
+      "id": "file-77",
+      "kind": "file",
+      "label": "LocalCrawler/src/config.js",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/src/config.js"
+    },
+    {
+      "id": "file-78",
+      "kind": "file",
+      "label": "LocalCrawler/src/index.js",
+      "url": "https://github.com/RD17/ambar/blob/master/LocalCrawler/src/index.js"
+    },
+    {
+      "id": "file-79",
+      "kind": "file",
+      "label": "Pipeline/.vscode/launch.json",
+      "url": "https://github.com/RD17/ambar/blob/master/Pipeline/.vscode/launch.json"
+    },
+    {
+      "id": "file-80",
+      "kind": "file",
+      "label": "Pipeline/.vscode/settings.json",
+      "url": "https://github.com/RD17/ambar/blob/master/Pipeline/.vscode/settings.json"
+    },
+    {
+      "id": "commit-1",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/2bdd0c32e89ecd562c7a97dfe9503086ba7f7475"
+    },
+    {
+      "id": "commit-2",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/0ece29c18231cdf4e6bb7e35a10ebb76720b098a"
+    },
+    {
+      "id": "commit-3",
+      "kind": "commit",
+      "label": "Merge pull request #277 from jwsy/README-minor-typo-patch-1",
+      "url": "https://github.com/RD17/ambar/commit/85959cb808e64ff692a3898939008aa0b2aaa884"
+    },
+    {
+      "id": "commit-4",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/ceae785b5ac6c36920ecffad5b716298247289a9"
+    },
+    {
+      "id": "commit-5",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/6081103eb1ac6d84f28ef32168c0fa17ff9f44b0"
+    },
+    {
+      "id": "commit-6",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/8981aa0e6fbe01809646c9d511c5b581d0367e8f"
+    },
+    {
+      "id": "commit-7",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/09ecd19be5e049262bf20f8a07b52cd807b4124c"
+    },
+    {
+      "id": "commit-8",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/852b46e57f1928448892e69e4ed1de8dbf266100"
+    },
+    {
+      "id": "commit-9",
+      "kind": "commit",
+      "label": "Merge pull request #254 from sgarwood/patch-1",
+      "url": "https://github.com/RD17/ambar/commit/618082c520a2132491e22a360612ebfb593d0e79"
+    },
+    {
+      "id": "commit-10",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/a7439122f4ab1fa3ad23a4349136bfba85a0a325"
+    },
+    {
+      "id": "commit-11",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/b61ed341be5bb7be2b63e7dc648dc34163a2cde4"
+    },
+    {
+      "id": "commit-12",
+      "kind": "commit",
+      "label": "Allow injection of Frontend IP Address via environment variables ",
+      "url": "https://github.com/RD17/ambar/commit/1d365b6cf24614975dbe6b6243cd9846cef03c9a"
+    },
+    {
+      "id": "commit-13",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/53f6667dd0a790ab52af0144d7e540408a148972"
+    },
+    {
+      "id": "commit-14",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/81c5eb5570bb2d779308a05b0fa64d3572397116"
+    },
+    {
+      "id": "commit-15",
+      "kind": "commit",
+      "label": "Merge pull request #248 from chazu/build-docs",
+      "url": "https://github.com/RD17/ambar/commit/87702b1614ce0f4ddef02b45cb4ac1de7b1c07dd"
+    },
+    {
+      "id": "commit-16",
+      "kind": "commit",
+      "label": "Add instructions on building with docker-compose",
+      "url": "https://github.com/RD17/ambar/commit/a2cf24d8d03ae6b8fb9f1fc540386672bfe277cf"
+    },
+    {
+      "id": "commit-17",
+      "kind": "commit",
+      "label": "add brief section to readme about building docker images",
+      "url": "https://github.com/RD17/ambar/commit/037439c3431000ee0eb04fb7b4879e07b98dcfe4"
+    },
+    {
+      "id": "commit-18",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/6fbbd80ffe06d3995e86d83c2a99bc34fcd1fe60"
+    },
+    {
+      "id": "commit-19",
+      "kind": "commit",
+      "label": "2.1",
+      "url": "https://github.com/RD17/ambar/commit/f6ae8824c35c77f15a2c9c8eef77f4795f8e36ba"
+    },
+    {
+      "id": "commit-20",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/d158d22e5496b2232911fa17733f79e6cd9bbda6"
+    },
+    {
+      "id": "commit-21",
+      "kind": "commit",
+      "label": "2.1",
+      "url": "https://github.com/RD17/ambar/commit/732d97a13557ec21bc586ac28028731e95e99004"
+    },
+    {
+      "id": "commit-22",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/fc0413d5811b09a3001030637098d8de1e9fbd90"
+    },
+    {
+      "id": "commit-23",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/ce45796cb4171e35802105f62910b17cc113f7d8"
+    },
+    {
+      "id": "commit-24",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/e6b6aa570eaf36ba07a2319b8aeefb04376a88b0"
+    },
+    {
+      "id": "commit-25",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/5b345685e8c184aec714249d64605534f7d9484f"
+    },
+    {
+      "id": "commit-26",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/b328347d87d096ceca81421eede856a641735d98"
+    },
+    {
+      "id": "commit-27",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/d50636c43ea5fe4dd9b367deee2189895ee3bc23"
+    },
+    {
+      "id": "commit-28",
+      "kind": "commit",
+      "label": "Update README.md",
+      "url": "https://github.com/RD17/ambar/commit/fe2fe8ad2bcdef88422454fa8c5dc0a0d45b4c20"
+    },
+    {
+      "id": "commit-29",
+      "kind": "commit",
+      "label": "v2.1.19e-8",
+      "url": "https://github.com/RD17/ambar/commit/a1af1dfa712eabe8831633dfd19328061a8decfd"
+    },
+    {
+      "id": "commit-30",
+      "kind": "commit",
+      "label": "v2.1.19e-7",
+      "url": "https://github.com/RD17/ambar/commit/7591d829697a96bef3483b687d8fbc22d26dbfa7"
+    },
+    {
+      "id": "issue-1",
+      "kind": "issue",
+      "label": "#301 no basic auth credentials",
+      "url": "https://github.com/RD17/ambar/issues/301"
+    }
+  ],
+  "analysis": {
+    "overview": {
+      "summary": "Ambar is an open-source, containerized document search engine designed for automated crawling, OCR (using Tesseract), tagging, and full-text search. It is currently an archived project.",
+      "claims": [
+        {
+          "text": "Ambar is an open-source document search engine.",
+          "kind": "observed",
+          "evidenceIds": [
+            "readme-1"
+          ]
+        },
+        {
+          "text": "The project is officially archived.",
+          "kind": "observed",
+          "evidenceIds": [
+            "readme-1"
+          ]
+        },
+        {
+          "text": "The engine supports OCR on images and PDFs using Tesseract.",
+          "kind": "observed",
+          "evidenceIds": [
+            "readme-1"
+          ]
+        }
+      ]
+    },
+    "architecture": {
+      "inferredFromFileTreeAndReadmeOnly": true,
+      "explanation": "Source files were not read. Based on the file tree and README, Ambar utilizes a microservices architecture orchestrated via Docker. The system consists of several decoupled components: a JavaScript-based FrontEnd, a LocalCrawler for file system monitoring, a Python-based processing Pipeline, and multiple API layers (ServiceApi and WebApi). The infrastructure relies on a specialized stack including ElasticSearch for indexing, MongoDB for storage, RabbitMQ for messaging, and Redis for caching/state.",
+      "claims": [
+        {
+          "text": "The architecture is containerized and designed to be deployed via docker-compose.",
+          "kind": "inferred",
+          "evidenceIds": [
+            "file-3",
+            "readme-1"
+          ]
+        },
+        {
+          "text": "The system uses a Python-based pipeline for document processing.",
+          "kind": "inferred",
+          "evidenceIds": [
+            "file-34",
+            "file-39"
+          ]
+        },
+        {
+          "text": "ElasticSearch is used as the primary search engine component.",
+          "kind": "inferred",
+          "evidenceIds": [
+            "file-11",
+            "file-12"
+          ]
+        },
+        {
+          "text": "The system employs a polyglot approach with JavaScript (FrontEnd, ServiceApi, WebApi) and Python (Pipeline).",
+          "kind": "inferred",
+          "evidenceIds": [
+            "file-22",
+            "file-34",
+            "file-54",
+            "file-63"
+          ]
+        }
+      ]
+    },
+    "history": {
+      "timeline": "The repository was created in late 2016. It saw significant versioning activity (v2.1) in mid-2019. The last recorded code push occurred in August 2021.",
+      "claims": [
+        {
+          "text": "The repository was created on 2016-11-28.",
+          "kind": "observed",
+          "evidenceIds": []
+        },
+        {
+          "text": "Version 2.1 was being developed/released around June 2019.",
+          "kind": "observed",
+          "evidenceIds": [
+            "commit-19",
+            "commit-21"
+          ]
+        },
+        {
+          "text": "The last push to the repository was in August 2021.",
+          "kind": "observed",
+          "evidenceIds": []
+        }
+      ]
+    },
+    "currentState": {
+      "healthSignals": "The project is in a state of maintenance dormancy. It is explicitly marked as archived, and there has been no code activity for several years, despite having two open issues.",
+      "claims": [
+        {
+          "text": "The project is in an archived state.",
+          "kind": "observed",
+          "evidenceIds": [
+            "readme-1"
+          ]
+        },
+        {
+          "text": "Development activity has ceased as of 2021.",
+          "kind": "observed",
+          "evidenceIds": []
+        }
+      ]
+    },
+    "revivalOpportunities": [
+      {
+        "title": "Cloud Storage Integration",
+        "description": "Expand the crawler to support cloud-native storage (e.g., S3, Azure Blob) to move beyond the current limitation of local file system crawling.",
+        "kind": "inferred",
+        "evidenceIds": [
+          "readme-1"
+        ]
+      },
+      {
+        "title": "Dependency Modernization",
+        "description": "Update the Docker images and language runtimes (Node.js, Python) to current stable versions to address potential security and performance issues.",
+        "kind": "inferred",
+        "evidenceIds": [
+          "file-22",
+          "file-39"
+        ]
+      },
+      {
+        "title": "Security and Authentication Updates",
+        "description": "Address reported issues regarding authentication credentials and implement more robust security protocols for the APIs.",
+        "kind": "inferred",
+        "evidenceIds": [
+          "issue-1"
+        ]
+      }
+    ],
+    "unknowns": [
+      "The specific interaction logic between the Pipeline and the ServiceApi/WebApi.",
+      "The current availability or maintenance status of the 'prebuilt images' mentioned in issue-1."
+    ]
+  },
+  "droppedEvidenceCount": 0
+}
