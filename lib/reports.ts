@@ -4,6 +4,7 @@ import { EchoesError } from "./errors";
 import type { EvidenceRecord } from "./evidence";
 import type { GitHubRepoMeta } from "./github/client";
 import type { Analysis } from "./schema";
+import { tmpdir } from "node:os";
 
 const REPORT_ID_PATTERN = /^[A-Za-z0-9._-]+$/;
 
@@ -23,9 +24,9 @@ export type InvestigationReport = {
 };
 
 export function reportsDir(): string {
-  return path.resolve(process.cwd(), "reports");
+  const base = process.env.VERCEL ? tmpdir() : process.cwd();
+  return path.resolve(base, "reports");
 }
-
 export function sanitizeReportId(id: string): string {
   if (!id || !REPORT_ID_PATTERN.test(id) || id.includes("..")) {
     throw new EchoesError(

@@ -115,6 +115,7 @@ function buildUserPrompt(
 }
 
 function isRetryable(error: unknown): boolean {
+  if ((error as { retryable?: boolean } | null)?.retryable) return true;
   const e = error as { status?: number; code?: number; message?: string };
   const status = e?.status ?? e?.code;
   if (typeof status === "number") return status === 429 || status >= 500;
@@ -147,7 +148,7 @@ async function generateOnce(
   model: string,
   prompt: string,
 ): Promise<string> {
-  const response = await withRetry(() =>
+  return withRetry(() =>
     Sentry.startSpan(
       {
         op: "gen_ai.request",
@@ -157,38 +158,41 @@ async function generateOnce(
           "gen_ai.system": "google_genai",
           "gen_ai.request.model": model,
           "gen_ai.request.temperature": 0.2,
-          "gen_ai.request.max_tokens": 4096,
+          "gen_ai.request.max_tokens": 8192,
         },
       },
       async (span) => {
         const result = await ai.models.generateContent({
           model,
           contents: prompt,
-          config: { temperature: 0.2, maxOutputTokens: 4096 },
+          config: { temperature: 0.2, maxOutputTokens: 8192 },
         });
         const usage = result.usageMetadata;
         if (usage?.promptTokenCount !== undefined)
-          span.setAttribute(
-            "gen_ai.usage.input_tokens",
-            usage.promptTokenCount,
-          );
+          span.setAttribute("gen_ai.usage.input_tokens", usage.promptTokenCount);
         if (usage?.candidatesTokenCount !== undefined)
-          span.setAttribute(
-            "gen_ai.usage.output_tokens",
-            usage.candidatesTokenCount,
-          );
+          span.setAttribute("gen_ai.usage.output_tokens", usage.candidatesTokenCount);
         if (usage?.totalTokenCount !== undefined)
           span.setAttribute("gen_ai.usage.total_tokens", usage.totalTokenCount);
-        return result;
+
+        const reply = result.text;
+        if (!reply?.trim()) {
+          const why =
+            result.candidates?.[0]?.finishReason ??
+            result.promptFeedback?.blockReason ??
+            "unknown";
+          throw Object.assign(
+            new EchoesError(
+              "gemma_empty",
+              `Gemma returned an empty response (reason: ${why}, model: ${model}).`,
+            ),
+            { retryable: true },
+          );
+        }
+        return reply;
       },
     ),
   );
-
-  const text = response.text;
-  if (!text?.trim()) {
-    throw new EchoesError("gemma_empty", "Gemma returned an empty response.");
-  }
-  return text;
 }
 
 function parseAnalysis(
