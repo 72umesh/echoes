@@ -12,7 +12,13 @@ export async function POST(request: Request) {
     repoUrl = typeof body.repoUrl === "string" ? body.repoUrl : "";
   } catch {
     return NextResponse.json(
-      { error: { code: "bad_request", message: "Send JSON like {\"repoUrl\": \"https://github.com/owner/repo\"}." } },
+      {
+        error: {
+          code: "bad_request",
+          message:
+            'Send JSON like {"repoUrl": "https://github.com/owner/repo"}.',
+        },
+      },
       { status: 400 },
     );
   }
@@ -29,12 +35,26 @@ export async function POST(request: Request) {
   } catch (error) {
     if (error instanceof EchoesError) {
       const status =
-        error.code === "invalid_url" ? 400 : error.code === "repo_not_found" ? 404 : 502;
-      return NextResponse.json({ error: { code: error.code, message: error.message } }, { status });
+        error.code === "invalid_url"
+          ? 400
+          : error.code === "repo_not_found"
+            ? 404
+            : 502;
+      return NextResponse.json(
+        { error: { code: error.code, message: error.message } },
+        { status },
+      );
     }
     console.error(error);
+
+    const detail =
+      error instanceof Error
+        ? `${error.name}: ${error.message}`.slice(0, 240)
+        : "Unknown error";
     return NextResponse.json(
-      { error: { code: "internal", message: "Investigation failed. Check the server terminal." } },
+      {
+        error: { code: "internal", message: `Investigation failed. ${detail}` },
+      },
       { status: 500 },
     );
   }
