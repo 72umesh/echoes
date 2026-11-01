@@ -1,19 +1,5 @@
 @import "tailwindcss";
 
-/*
- * Echoes design tokens
- *
- * Spacing: Tailwind's 4px scale. Use multiples of 8 (2, 4, 6, 8, 12, 16) for layout,
- *          and 4 (1) only for tight pairs.
- * Radius:  rounded-2xl (16px) for cards, tiles and callouts
- *          rounded-lg  (8px)  for inputs and buttons
- *          rounded-full       for pills, badges and chips
- * Borders: always 1px. border-line by default, border-line-strong for controls,
- *          border-accent on focus.
- * Type:    display = Pirata One (headings only, 24px and up)
- *          sans = Geist (body and UI), mono = Geist Mono (evidence IDs)
- */
-
 @theme {
   /* Surfaces: rich mahogany */
   --color-night: #0b0103;
@@ -56,6 +42,8 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-pirata), ui-serif, Georgia, serif;
+  --font-lora: var(--font-lora), Georgia, serif;
+  --font-manrope: var(--font-manrope), sans-serif;
 }
 
 :root {
@@ -86,7 +74,6 @@ body {
   outline-offset: 2px;
 }
 
-/* The ghost: one slow drift across the page, with a gentle bob inside it. */
 @keyframes ghost-drift {
   0% {
     transform: translate3d(-12vw, 16vh, 0);

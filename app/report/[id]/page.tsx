@@ -56,7 +56,7 @@ function quietFor(pushedAt: string | null, generatedAt: string): string | null {
 function Badge({ kind }: { kind: ClaimKind }) {
   return (
     <span
-      className={`inline-flex h-6 w-24 shrink-0 items-center justify-center rounded-full border text-xs font-medium ${KIND_STYLE[kind].badge}`}
+      className={`inline-flex font-lora h-6 w-24 shrink-0 items-center justify-center rounded-full border text-xs font-medium ${KIND_STYLE[kind].badge}`}
     >
       {kind}
     </span>
@@ -69,7 +69,7 @@ function Pill({ children, tone = "neutral" }: { children: React.ReactNode; tone?
       ? "border-danger-line bg-danger-bg text-danger-text"
       : "border-line bg-surface text-cream/80";
   return (
-    <span className={`inline-flex h-8 items-center rounded-full border px-4 text-sm ${style}`}>
+    <span className={`inline-flex h-8 items-center rounded-md border px-4 text-sm ${style}`}>
       {children}
     </span>
   );
@@ -87,16 +87,16 @@ function Callout({
       ? "border-inferred-line bg-inferred-bg text-inferred-text"
       : "border-line-strong bg-raised text-cream/80";
   return (
-    <div className={`rounded-2xl border p-4 text-sm leading-6 ${style}`}>{children}</div>
+    <div className={`rounded-md border px-4 py-2 text-base leading-6 ${style}`}>{children}</div>
   );
 }
 
 function Stat({ label, value, note }: { label: string; value: string; note?: string | null }) {
   return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
-      <dt className="text-sm text-cream/60">{label}</dt>
+    <div className="rounded-lg border border-line bg-surface p-4">
+      <dt className="text-sm font-manrope text-cream/60">{label}</dt>
       <dd className="mt-2 font-display text-[32px] leading-10 text-cream">{value}</dd>
-      {note && <p className="mt-1 text-xs leading-4 text-cream/60">{note}</p>}
+      {note && <p className="mt-1 font-manrope text-xs leading-4 text-cream/60">{note}</p>}
     </div>
   );
 }
@@ -152,7 +152,7 @@ function ClaimList({ claims, evidence }: { claims: Claim[]; evidence: EvidenceBy
             <Badge kind={claim.kind} />
           </div>
           <div className="min-w-0">
-            <p className="leading-7 text-cream/90">{claim.text}</p>
+            <p className="leading-7 font-manrope text-cream/90">{claim.text}</p>
             <EvidenceLinks ids={claim.evidenceIds} evidence={evidence} />
           </div>
         </li>
@@ -173,13 +173,13 @@ function Section({
   return (
     <section id={id} className="scroll-mt-8">
       <h2 className="font-display text-[32px] leading-10 text-cream">{title}</h2>
-      <div className="mt-4 rounded-2xl border border-line bg-surface p-6">{children}</div>
+      <div className="mt-4 rounded-lg border border-line bg-surface p-6">{children}</div>
     </section>
   );
 }
 
 function Narrative({ children }: { children: React.ReactNode }) {
-  return <p className="text-lg leading-8 text-cream">{children}</p>;
+  return <p className="text-lg font-manrope leading-8 text-cream">{children}</p>;
 }
 
 function Divider({ children }: { children: React.ReactNode }) {
@@ -224,13 +224,13 @@ export default async function ReportPage({
       <main className="relative z-10 mx-auto w-full max-w-5xl flex-1 px-6 pb-16">
         <Link
           href="/"
-          className="inline-flex text-sm text-cream/70 transition hover:text-cream"
+          className="inline-flex text-sm text-cream/70 transition hover:text-cream font-manrope"
         >
           Investigate another repository
         </Link>
 
         <header className="mt-8">
-          <h1 className="font-display text-[48px] leading-[48px] text-cream sm:text-[64px] sm:leading-[64px]">
+          <h1 className="font-display text-[48px] leading-12 text-cream sm:text-[64px] sm:leading-16">
             <a
               href={repo.htmlUrl}
               target="_blank"
@@ -241,7 +241,7 @@ export default async function ReportPage({
             </a>
           </h1>
           {repo.description && (
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-cream/70">{repo.description}</p>
+            <p className="mt-2 max-w-2xl text-md leading-8 text-cream/70 font-lora">{repo.description}</p>
           )}
 
           <ul className="mt-6 flex flex-wrap gap-2">
@@ -287,13 +287,13 @@ export default async function ReportPage({
         <div className="mt-12 grid gap-12 lg:grid-cols-[208px_minmax(0,1fr)]">
           <aside className="hidden lg:sticky lg:top-8 lg:block lg:self-start">
             <nav aria-label="On this page">
-              <p className="text-sm font-semibold text-cream">On this page</p>
+              <p className="text-sm font-semibold text-cream font-manrope">On this page</p>
               <ul className="mt-4 border-l border-line">
                 {nav.map((item) => (
                   <li key={item.id}>
                     <a
                       href={`#${item.id}`}
-                      className="block py-1 pl-4 text-sm leading-6 text-cream/70 transition hover:text-accent"
+                      className="block py-1 pl-4 font-lora text-sm leading-6 text-cream/70 transition hover:text-accent"
                     >
                       {item.label}
                     </a>
@@ -304,8 +304,8 @@ export default async function ReportPage({
           </aside>
 
           <div className="min-w-0 space-y-12">
-            <section aria-labelledby="legend-title" className="rounded-2xl border border-line bg-surface p-6">
-              <h2 id="legend-title" className="text-lg font-semibold leading-8 text-cream">
+            <section aria-labelledby="legend-title" className="rounded-lg border border-line bg-surface p-6">
+              <h2 id="legend-title" className="text-lg font-semibold leading-8 text-cream font-manrope">
                 How to read the labels
               </h2>
               <dl className="mt-4 grid gap-4 md:grid-cols-3">
@@ -314,7 +314,7 @@ export default async function ReportPage({
                     <dt>
                       <Badge kind={kind} />
                     </dt>
-                    <dd className="text-sm leading-6 text-cream/70">{KIND_STYLE[kind].meaning}</dd>
+                    <dd className="text-sm font-manrope leading-6 text-cream/70">{KIND_STYLE[kind].meaning}</dd>
                   </div>
                 ))}
               </dl>
@@ -412,8 +412,8 @@ export default async function ReportPage({
                   const items = report.evidence.filter((item) => item.kind === group.kind);
                   if (items.length === 0) return null;
                   return (
-                    <details key={group.kind} className="rounded-2xl border border-line bg-raised p-4">
-                      <summary className="cursor-pointer text-base font-semibold leading-6 text-cream marker:text-accent">
+                    <details key={group.kind} className="rounded-md border border-line bg-raised p-4">
+                      <summary className="cursor-pointer font-manrope text-base font-semibold leading-6 text-cream marker:text-accent">
                         {group.title} ({items.length})
                       </summary>
                       <ul className="mt-4 flex flex-wrap gap-2">
