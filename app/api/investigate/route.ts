@@ -24,14 +24,13 @@ export async function POST(request: Request) {
   }
 
   try {
-    let id: string;
     if (process.env.USE_TEMPORAL === "true") {
       const { runInvestigationViaTemporal } = await import("@/temporal/client");
-      id = (await runInvestigationViaTemporal(repoUrl)).id;
-    } else {
-      id = (await investigateRepository(repoUrl)).report.id;
+      const { id } = await runInvestigationViaTemporal(repoUrl);
+      return NextResponse.json({ id });
     }
-    return NextResponse.json({ id });
+    const { report } = await investigateRepository(repoUrl);
+    return NextResponse.json({ id: report.id, report });
   } catch (error) {
     if (error instanceof EchoesError) {
       const status =

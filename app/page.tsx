@@ -56,6 +56,16 @@ export default function Home() {
         setLoading(false);
         return;
       }
+      if (data.report) {
+        try {
+          window.localStorage.setItem(
+            `echoes:report:${data.id}`,
+            JSON.stringify(data.report),
+          );
+        } catch {
+          // Storage can be full or blocked. The server copy may still work.
+        }
+      }
       router.push(`/report/${data.id}`);
     } catch {
       setError("Could not reach the server. Check that npm run dev is still running.");
