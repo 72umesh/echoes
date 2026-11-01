@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Echoes design tokens
+ *
+ * Spacing: Tailwind's 4px scale. Use multiples of 8 (2, 4, 6, 8, 12, 16) for layout,
+ *          and 4 (1) only for tight pairs.
+ * Radius:  rounded-2xl (16px) for cards, tiles and callouts
+ *          rounded-lg  (8px)  for inputs and buttons
+ *          rounded-full       for pills, badges and chips
+ * Borders: always 1px. border-line by default, border-line-strong for controls,
+ *          border-accent on focus.
+ * Type:    display = Pirata One (headings only, 24px and up)
+ *          sans = Geist (body and UI), mono = Geist Mono (evidence IDs)
+ */
+
+@theme {
+  /* Surfaces: rich mahogany */
+  --color-night: #0b0103;
+  --color-surface: #170206;
+  --color-raised: #220209;
+  --color-line: #38040e;
+  --color-line-strong: #640d14;
+
+  /* Text: warm cream from the princeton orange ramp */
+  --color-cream: #fee8d3;
+
+  /* Accent: princeton orange */
+  --color-accent: #fb8b24;
+  --color-accent-hover: #fba24f;
+
+  /* Links and evidence IDs: dark teal, light end */
+  --color-link: #74d1e8;
+  --color-link-hover: #bae8f4;
+
+  /* Claim kinds */
+  --color-observed-bg: #061f25;
+  --color-observed-line: #0f4c5c;
+  --color-observed-text: #74d1e8;
+
+  --color-inferred-bg: #381c01;
+  --color-inferred-line: #a85303;
+  --color-inferred-text: #fcba7b;
+
+  --color-unknown-bg: #27061a;
+  --color-unknown-line: #a61a70;
+  --color-unknown-text: #ea75bd;
+
+  /* Errors: deep crimson */
+  --color-danger-bg: #1f0106;
+  --color-danger-line: #9a031e;
+  --color-danger-text: #fc758e;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-pirata), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background-color: var(--color-night);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-night);
+  background-image:
+    radial-gradient(48rem 32rem at 12% -8%, rgb(95 15 64 / 0.45), transparent 70%),
+    radial-gradient(40rem 28rem at 92% 4%, rgb(154 3 30 / 0.22), transparent 70%);
+  background-repeat: no-repeat;
+  color: var(--color-cream);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-unknown-line);
+  color: var(--color-cream);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* The ghost: one slow drift across the page, with a gentle bob inside it. */
+@keyframes ghost-drift {
+  0% {
+    transform: translate3d(-12vw, 16vh, 0);
+  }
+  22% {
+    transform: translate3d(24vw, 4vh, 0);
+  }
+  46% {
+    transform: translate3d(60vw, 20vh, 0);
+  }
+  72% {
+    transform: translate3d(86vw, 8vh, 0);
+  }
+  100% {
+    transform: translate3d(-12vw, 16vh, 0);
+  }
+}
+
+@keyframes ghost-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(3deg);
+  }
+}
+
+.ghost-drift {
+  animation: ghost-drift 72s ease-in-out infinite;
+}
+
+.ghost-bob {
+  animation: ghost-bob 8s ease-in-out infinite;
+}
+
+.ghost-glow {
+  filter: drop-shadow(0 0 16px rgb(255 255 255 / 0.35));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ghost-drift,
+  .ghost-bob {
+    animation: none;
+  }
+
+  .ghost-drift {
+    transform: translate3d(68vw, 8vh, 0);
+  }
 }
