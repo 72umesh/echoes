@@ -83,17 +83,17 @@ export default function Home() {
           <h1 className="font-display text-[64px] leading-16 text-cream sm:text-[96px] sm:leading-24">
             Echoes
           </h1>
-          <p className="mt-6 text-xl leading-8 text-cream font-lora">
+          <p className="mt-6 text-base sm:text-xl leading-8 text-cream font-lora">
             Every repository has a story. Some are waiting to be continued.
           </p>
-          <p className="mx-auto mt-2 max-w-xl text-sm leading-7 text-cream/70 font-manrope">
+          <p className="mx-auto mt-2 max-w-xl text-xs sm:text-sm leading-7 text-cream/70 font-manrope text-justify">
             Paste a public GitHub repository. Echoes reads its history and
             tells you what it was, where it stopped, and how you could pick it
             up.
           </p>
         </section>
 
-        <section className="mx-auto mt-12 max-w-2xl rounded-lg border border-line bg-surface/80 p-6 shadow-[0_0_64px_rgb(95_15_64/0.35)] backdrop-blur-sm">
+        <section className="mx-auto mt-12 max-w-2xl rounded-lg border border-line bg-surface/80 p-2 sm:p-6 shadow-[0_0_64px_rgb(95_15_64/0.35)] backdrop-blur-sm">
           <form onSubmit={onSubmit} className="flex flex-col gap-4 sm:flex-row">
             <label htmlFor="repo-url" className="sr-only">
               GitHub repository URL
@@ -106,26 +106,26 @@ export default function Home() {
               onChange={(event) => setRepoUrl(event.target.value)}
               placeholder="https://github.com/owner/repo"
               disabled={loading}
-              className="h-12 w-full font-manrope rounded border border-line-strong bg-raised px-4 text-base text-cream outline-none transition placeholder:text-cream/40 focus:border-accent focus:ring-2 focus:ring-accent/30 disabled:opacity-60"
+              className="h-8 sm:h-12 w-full font-manrope rounded border border-line-strong bg-raised px-4 text-sm sm:text-base text-cream outline-none transition placeholder:text-cream/40 focus:border-accent focus:ring-2 focus:ring-accent/30 disabled:opacity-60"
             />
             <button
               type="submit"
               disabled={loading}
-              className="h-12 shrink-0 rounded font-lora border border-accent bg-accent px-8 text-base font-semibold text-night transition hover:bg-accent-hover disabled:opacity-60"
+              className="h-8 sm:h-12 shrink-0 rounded font-lora border border-accent bg-accent px-8 text-sm sm:text-base font-semibold text-night transition hover:bg-accent-hover disabled:opacity-60"
             >
               {loading ? "Investigating" : "Investigate"}
             </button>
           </form>
 
           <div className="mt-4 flex flex-wrap items-center gap-2">
-            <span className="text-sm text-cream/60 font-manrope">Try an example:</span>
+            <span className="text-xs sm:text-sm text-cream/60 font-manrope">Try an example:</span>
             {EXAMPLES.map((example) => (
               <button
                 key={example.url}
                 type="button"
                 disabled={loading}
                 onClick={() => setRepoUrl(example.url)}
-                className="rounded-full font-lora border border-line bg-raised px-6 py-1 text-sm text-cream/80 transition hover:border-line-strong hover:text-cream disabled:opacity-60"
+                className="rounded-full font-lora border border-line bg-raised px-6 py-1 text-xs sm:text-sm text-cream/80 transition hover:border-line-strong hover:text-cream disabled:opacity-60"
               >
                 {example.label}
               </button>
@@ -169,7 +169,7 @@ export default function Home() {
             {STEPS.map((step, index) => (
               <li
                 key={step.title}
-                className="rounded-lg border border-line bg-surface/80 p-6 backdrop-blur-sm"
+                className="rounded-lg border border-line bg-surface/80 p-4 sm:p-6 backdrop-blur-sm text-justify"
               >
                 <span className="font-display text-3xl leading-8 text-accent">
                   {index + 1}

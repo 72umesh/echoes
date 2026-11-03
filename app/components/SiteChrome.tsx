@@ -20,7 +20,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="relative z-10 mx-auto mt-auto w-full max-w-5xl px-6 pb-8">
-      <p className="border-t border-line pt-6 text-sm leading-6 text-cream/60 font-manrope">
+      <p className="border-t border-line pt-6 text-xs sm:text-sm leading-6 text-cream/60 font-manrope">
         Echoes is open source. Reports come from a Gemma model reached through
         the hosted Gemini API, so analysis is not offline or private. Low
         activity is a signal, not proof that a project is abandoned.

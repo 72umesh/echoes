@@ -85,15 +85,15 @@ function Callout({
       ? "border-inferred-line bg-inferred-bg text-inferred-text"
       : "border-line-strong bg-raised text-cream/80";
   return (
-    <div className={`rounded-md border px-4 py-2 text-base leading-6 ${style}`}>{children}</div>
+    <div className={`rounded-md border px-4 py-2 text-sm sm:text-base leading-6 ${style}`}>{children}</div>
   );
 }
 
 function Stat({ label, value, note }: { label: string; value: string; note?: string | null }) {
   return (
     <div className="rounded-lg border border-line bg-surface p-4">
-      <dt className="text-sm font-manrope text-cream/60">{label}</dt>
-      <dd className="mt-2 font-display text-[32px] leading-10 text-cream">{value}</dd>
+      <dt className="text-xs sm:text-sm font-manrope text-cream/60">{label}</dt>
+      <dd className="mt-2 font-display  text-2xl sm:text-[32px] leading-10 text-cream">{value}</dd>
       {note && <p className="mt-1 font-manrope text-xs leading-4 text-cream/60">{note}</p>}
     </div>
   );
@@ -150,7 +150,7 @@ function ClaimList({ claims, evidence }: { claims: Claim[]; evidence: EvidenceBy
             <Badge kind={claim.kind} />
           </div>
           <div className="min-w-0">
-            <p className="leading-7 font-manrope text-cream/90">{claim.text}</p>
+            <p className="leading-7 text-xs sm:text-sm font-manrope text-cream/90">{claim.text}</p>
             <EvidenceLinks ids={claim.evidenceIds} evidence={evidence} />
           </div>
         </li>
@@ -171,13 +171,13 @@ function Section({
   return (
     <section id={id} className="scroll-mt-8">
       <h2 className="font-display text-[32px] leading-10 text-cream">{title}</h2>
-      <div className="mt-4 rounded-lg border border-line bg-surface p-6">{children}</div>
+      <div className="mt-4 rounded-lg border border-line bg-surface p-3 sm:p-6">{children}</div>
     </section>
   );
 }
 
 function Narrative({ children }: { children: React.ReactNode }) {
-  return <p className="text-lg font-manrope leading-8 text-cream">{children}</p>;
+  return <p className="text-xs sm:text-sm font-manrope leading-8 text-cream">{children}</p>;
 }
 
 function Divider({ children }: { children: React.ReactNode }) {
@@ -205,16 +205,16 @@ export function ReportView({ report }: { report: InvestigationReport }) {
     <>
       <SiteHeader />
 
-      <main className="relative z-10 mx-auto w-full max-w-5xl flex-1 px-6 pb-16">
+      <main className="relative z-10 mx-auto w-full max-w-5xl flex-1 px-4 sm:px-6 pb-16">
         <Link
           href="/"
           className="inline-flex text-sm text-cream/70 transition hover:text-cream font-manrope"
         >
-          Investigate another repository
+          Investigate another repository 
         </Link>
 
         <header className="mt-8">
-          <h1 className="font-display text-[48px] leading-12 text-cream sm:text-[64px] sm:leading-16">
+          <h1 className="font-display text-[48px] sm:text-[64px] leading-12 text-cream sm:leading-16">
             <a
               href={repo.htmlUrl}
               target="_blank"
@@ -225,7 +225,7 @@ export function ReportView({ report }: { report: InvestigationReport }) {
             </a>
           </h1>
           {repo.description && (
-            <p className="mt-2 max-w-2xl text-md leading-8 text-cream/70 font-lora">{repo.description}</p>
+            <p className="mt-2 max-w-2xl text-base sm:text-lg leading-8 text-cream/70 font-lora">{repo.description}</p>
           )}
 
           <ul className="mt-6 flex flex-wrap gap-2">
@@ -288,7 +288,7 @@ export function ReportView({ report }: { report: InvestigationReport }) {
           </aside>
 
           <div className="min-w-0 space-y-12">
-            <section aria-labelledby="legend-title" className="rounded-lg border border-line bg-surface p-6">
+            <section aria-labelledby="legend-title" className="rounded-lg border border-line bg-surface p-4 sm:p-6">
               <h2 id="legend-title" className="text-lg font-semibold leading-8 text-cream font-manrope">
                 How to read the labels
               </h2>
@@ -356,11 +356,11 @@ export function ReportView({ report }: { report: InvestigationReport }) {
                 <ul className="divide-y divide-line">
                   {analysis.revivalOpportunities.map((item, index) => (
                     <li key={index} className="py-6 first:pt-0 last:pb-0">
-                      <div className="flex flex-wrap items-center gap-4">
-                        <h3 className="text-lg font-semibold leading-8 text-cream">{item.title}</h3>
+                      <div className="flex flex-col sm:flex-row flex-wrap sm:items-center gap-2 sm:gap-4">
+                        <h3 className="text-base font-semibold leading-8 text-cream">{item.title}</h3>
                         <Badge kind={item.kind} />
                       </div>
-                      <p className="mt-2 leading-7 text-cream/80">{item.description}</p>
+                      <p className="mt-2 text-sm leading-7 text-cream/80">{item.description}</p>
                       <EvidenceLinks ids={item.evidenceIds} evidence={evidence} />
                     </li>
                   ))}
@@ -396,8 +396,8 @@ export function ReportView({ report }: { report: InvestigationReport }) {
                   const items = report.evidence.filter((item) => item.kind === group.kind);
                   if (items.length === 0) return null;
                   return (
-                    <details key={group.kind} className="rounded-md border border-line bg-raised p-4">
-                      <summary className="cursor-pointer font-manrope text-base font-semibold leading-6 text-cream marker:text-accent">
+                    <details key={group.kind} className="rounded-md border border-line bg-raised px-4 py-2 sm:p-4">
+                      <summary className="cursor-pointer font-manrope text-sm sm:text-base font-semibold leading-6 text-cream marker:text-accent">
                         {group.title} ({items.length})
                       </summary>
                       <ul className="mt-4 flex flex-wrap gap-2">
