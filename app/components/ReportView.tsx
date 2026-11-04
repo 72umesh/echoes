@@ -40,6 +40,10 @@ function formatDate(iso: string | null): string {
   });
 }
 
+function cleanDescription(text: string | null): string {
+  return (text ?? "").replace(/:[a-z0-9_+-]+:/gi, "").replace(/\s+/g, " ").trim();
+}
+
 // How long the repository had been quiet when this report was generated.
 function quietFor(pushedAt: string | null, generatedAt: string): string | null {
   if (!pushedAt) return null;
@@ -201,6 +205,8 @@ export function ReportView({ report }: { report: InvestigationReport }) {
     { id: "evidence", label: "Evidence index" },
   ];
 
+  const description = cleanDescription(repo.description);
+
   return (
     <>
       <SiteHeader />
@@ -224,8 +230,8 @@ export function ReportView({ report }: { report: InvestigationReport }) {
               {repo.fullName}
             </a>
           </h1>
-          {repo.description && (
-            <p className="mt-2 max-w-2xl text-base sm:text-lg leading-8 text-cream/70 font-lora">{repo.description}</p>
+          {description && (
+            <p className="mt-2 max-w-2xl text-base sm:text-lg leading-8 text-cream/70 font-lora">{description}</p>
           )}
 
           <ul className="mt-6 flex flex-wrap gap-2">
